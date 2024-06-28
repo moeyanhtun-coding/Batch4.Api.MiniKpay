@@ -1,10 +1,10 @@
 ﻿namespace Batch4.Api.MiniKpay.Models.TransactionHistory;
 
-public class TransactionHsitoryRequestModel
+public class TransactionHistoryRequestModel
 {
     public string? CustomerCode { get; set; }
 
-    public void IsValid()
+    public bool IsValid()
     {
         try
         {
@@ -15,5 +15,6 @@ public class TransactionHsitoryRequestModel
         {
             throw new Exception(ex.ToString());
         }
+        return true;
     }
 }
