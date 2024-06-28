@@ -20,14 +20,14 @@ public static class ModularServices
 
     public static IServiceCollection AddDataAccess(this IServiceCollection services)
     {
-        services.AddScoped<DA_Transfar>();
+        services.AddScoped<DA_Transfer>();
         services.AddScoped<DA_TransactionHistory>();
         return services;
     }
 
     public static IServiceCollection AddBusinessLogic(this IServiceCollection services)
     {
-        services.AddScoped<BL_Transfar>();
+        services.AddScoped<BL_Transfer>();
         services.AddScoped<BL_TransactionHistory>();
         return services;
     }
