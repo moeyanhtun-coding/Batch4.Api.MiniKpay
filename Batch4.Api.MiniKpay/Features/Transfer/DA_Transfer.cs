@@ -16,9 +16,9 @@ public class DA_Transfer
 
     public async Task<string> HandleInsufficientBalance(string mobileNo, decimal amount)
     {
-        string query =
-            @"select * from Tbl_CustomerBalance
-            where MobileNo = @MobileNo";
+        string query = @"select cb.* from Tbl_Customer c
+        inner join Tbl_CustomerBalance cb on cb.CustomerCode = c.CustomerCode
+        where MobileNo = @MobileNo";
 
         var result = await _db.QueryAsync<CustomerBalanceModel>(query, new { MobileNo = mobileNo });
         var item = result.FirstOrDefault();
@@ -45,7 +45,10 @@ public class DA_Transfer
 
     public async Task<string> DecreaseAmount(string mobileNo, decimal amount)
     {
-        string query = "Update Tbl_CustomerBalance Set Balance = Balance - @Balance where MobileNo = @MobileNo";
+        string query = @"UPDATE CB SET CB.Balance = CB.Balance - @Balance FROM Tbl_CustomerBalance CB
+                        INNER JOIN Tbl_Customer C ON CB.CustomerCode = C.CustomerCode
+                        WHERE C.MobileNo = @MobileNo";
+
         var queryResult = await _db.ExecuteAsync(query, new { MobileNo = mobileNo, Balance = amount });
 
         return ("Operation Successful");
@@ -53,7 +56,10 @@ public class DA_Transfer
 
     public async Task<string> IncreaseAmount(string mobileNo, decimal amount)
     {
-        string query = "Update Tbl_CustomerBalance Set Balance = Balance + @Balance where MobileNo = @MobileNo";
+        string query = @"UPDATE CB SET CB.Balance = CB.Balance + @Balance FROM Tbl_CustomerBalance CB
+                        INNER JOIN Tbl_Customer C ON CB.CustomerCode = C.CustomerCode
+                        WHERE C.MobileNo = @MobileNo";
+
         var queryResult = await _db.ExecuteAsync(query, new { MobileNo = mobileNo, Balance = amount });
 
         return ("Operation Successful");
