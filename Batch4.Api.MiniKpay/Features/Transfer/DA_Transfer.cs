@@ -46,7 +46,7 @@ public class DA_Transfer
     public async Task<string> DecreaseAmount(string mobileNo, decimal amount)
     {
         string query = "Update Tbl_CustomerBalance Set Balance = Balance - @Balance where MobileNo = @MobileNo";
-        var queryResult = await _db.QueryAsync(query, new { MobileNo = mobileNo, Balance = amount });
+        var queryResult = await _db.ExecuteAsync(query, new { MobileNo = mobileNo, Balance = amount });
 
         return ("Operation Successful");
     }
@@ -54,7 +54,7 @@ public class DA_Transfer
     public async Task<string> IncreaseAmount(string mobileNo, decimal amount)
     {
         string query = "Update Tbl_CustomerBalance Set Balance = Balance + @Balance where MobileNo = @MobileNo";
-        var queryResult = await _db.QueryAsync(query, new { MobileNo = mobileNo, Balance = amount });
+        var queryResult = await _db.ExecuteAsync(query, new { MobileNo = mobileNo, Balance = amount });
 
         return ("Operation Successful");
     }
