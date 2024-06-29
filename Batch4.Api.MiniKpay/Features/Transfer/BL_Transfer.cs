@@ -16,6 +16,7 @@ public class BL_Transfer
         var result = await _dA_Transfar.ValidateMobileNumber(reqModel.FromMobileNo);
         if (result == null)
             throw new Exception("FromMobile No is Invalid!");
+
         result = await _dA_Transfar.ValidateMobileNumber(reqModel.ToMobileNo);
         if (result == null)
             throw new Exception("ToMobile No is Invalid!");
@@ -27,6 +28,7 @@ public class BL_Transfer
         await _dA_Transfar.DecreaseAmount(reqModel.FromMobileNo, reqModel.Amount);
         await _dA_Transfar.IncreaseAmount(reqModel.ToMobileNo, reqModel.Amount);
         await _dA_Transfar.CreateTransaction(reqModel);
+
         return ("Opearation Successful");
     }
 }
